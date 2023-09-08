@@ -1,8 +1,5 @@
 #include "planeTable.h"
 
-#define PLANEW 8
-#define PLANEH 20
-
 using namespace std;
 std::stringstream ss;
 
@@ -50,7 +47,8 @@ void planeTable::movNote(note* n) {
 	}
 }
 
-void planeTable::checkLine() {
+int planeTable::checkLine() {
+	int line = 0;
 	for (int tt = 0; tt < PLANEH; tt++) {
 		for (int i = PLANEH - 1; i >= 0; i--) {
 			int stock = 0;
@@ -63,10 +61,12 @@ void planeTable::checkLine() {
 						stockTable[k + 1][l] = stockTable[k][l];
 					}
 				}
-				score += PLANEW;
+				score += PLANEW; line++;
 			}
 		}
 	}
+	if (line == 0) return 0;
+	else return 1;
 }
 
 int planeTable::setMovTable(note* n) {
@@ -75,7 +75,8 @@ int planeTable::setMovTable(note* n) {
 	for (int i = 0; i < n->sH; i++) {
 		for (int j = 0; j < n->sW; j++) {
 			if (n->shape[i][j] == 1 && stockTable[n->lty + i][n->ltx + j] == 1 || n->sH + n->lty > PLANEH) {
-				n->ungo(); stockNote(n); return 1;
+				if (n->command == DOWN) { n->ungo(); stockNote(n); return 1; }
+				else { n->ungo(); break; }
 			}
 			if (n->ltx < 0 || n->ltx + n->sW > PLANEW) {
 				n->ungo(); break;
