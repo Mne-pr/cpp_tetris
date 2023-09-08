@@ -6,4 +6,5 @@
 int main() {
 	controller con;
 	con.RunGame();
+	return 0;
 }
