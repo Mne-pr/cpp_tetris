@@ -6,7 +6,7 @@ using namespace std;
 using namespace std::chrono;
 std::stringstream sss;
 
-// ÄÁÆ®·Ñ·¯ Å¬·¡½º
+// ì»¨íŠ¸ë¡¤ëŸ¬ í´ë˜ìŠ¤
 controller::controller() : gen(random_device()()) {
 	makeNote(); makeNoteN(); standby = 1;
 	table = planeTable(&render);
@@ -15,7 +15,7 @@ controller::controller() : gen(random_device()()) {
 }
 
 void controller::makeNote() {
-	// ·£´ı °ª, ¸ğµå »ı¼º
+	// ëœë¤ ê°’, ëª¨ë“œ ìƒì„±
 	uniform_int_distribution<int> distribution(1, 100);
 	int rd = distribution(gen), mode = distribution(gen);
 
@@ -35,7 +35,7 @@ void controller::makeNote() {
 }
 
 void controller::makeNoteN() {
-	// ·£´ı °ª, ¸ğµå »ı¼º
+	// ëœë¤ ê°’, ëª¨ë“œ ìƒì„±
 	uniform_int_distribution<int> distribution(1, 100);
 	int rd = distribution(gen), mode = distribution(gen);
 
@@ -55,7 +55,7 @@ void controller::makeNoteN() {
 }
 
 void controller::running(int direction) {
-	// È­¸é Å¬¸®¾î
+	// í™”ë©´ í´ë¦¬ì–´
 	int res = 0;
 
 	if (standby == 0) {
@@ -64,7 +64,7 @@ void controller::running(int direction) {
 	}
 	n->command = direction;
 
-	// ÀÏ´Ü ³ëÆ® Å×ÀÌºí¿¡ Ãß°¡ ½Ãµµ. ¿Ï·á->»èÁ¦ ÈÄ »õ ³ëµå
+	// ì¼ë‹¨ ë…¸íŠ¸ í…Œì´ë¸”ì— ì¶”ê°€ ì‹œë„. ì™„ë£Œ->ì‚­ì œ í›„ ìƒˆ ë…¸ë“œ
 	while (1) {
 		table.clearMovTable();
 		if (direction == SPACE) n->command = DOWN;
@@ -84,7 +84,7 @@ void controller::running(int direction) {
 		if (clearCount % 5 == 4) { last_runSpeed = runSpeed; runSpeed -= 0.01; }
 	}
 
-	// Å×ÀÌºí Ãâ·Â
+	// í…Œì´ë¸” ì¶œë ¥
 	render.screenClear(0, 0, 100, 100);
 	table.tablePrint(); table.nextPrint(next_n); table.scorePrint();
 	if (res == 0) statPrint();
@@ -108,7 +108,7 @@ void controller::statPrint() {
 	render.screenRender((char*)(sss.str().c_str())); render.screenEndl();
 
 	sss.str(""); sss << "runspeed : " << runSpeed;
-	if (runSpeed != last_runSpeed) { sss << " speed up!"; } sss << endl;
+	if (runSpeed != last_runSpeed) { sss << " speed up!"; ast_runSpeed = runSpeed; } sss << endl;
 	render.screenRender((char*)(sss.str().c_str()));
 }
 
@@ -124,18 +124,18 @@ void controller::endPrint(int m) {
 }
 
 void controller::RunGame() {
-	// ÇöÀç ½Ã°£ ÃøÁ¤
+	// í˜„ì¬ ì‹œê°„ ì¸¡ì •
 	auto T = high_resolution_clock::now();
 
 	while (true) {
 		auto cT = high_resolution_clock::now();
-		// 1ÃÊ¸¶´Ù
+		// 1ì´ˆë§ˆë‹¤
 		if (duration_cast<duration<double>>(cT - T).count() >= runSpeed) {
 			T = high_resolution_clock::now();
 			running(DOWN);
 		}
 
-		// ÀÔ·Â¹ŞÀ» ¶§
+		// ì…ë ¥ë°›ì„ ë•Œ
 		if (_kbhit()) {
 			char userInput = _getch();
 			// 97 115 100
@@ -143,20 +143,20 @@ void controller::RunGame() {
 		}
 
 		if (table.gameover == 1) break;
-		this_thread::sleep_for(milliseconds(10)); // 0.1ÃÊ ´ë±â
+		this_thread::sleep_for(milliseconds(10)); // 0.1ì´ˆ ëŒ€ê¸°
 	}
 
 	while (true) {
 		auto cT = high_resolution_clock::now();
 		if (duration_cast<duration<double>>(cT - T).count() >= 0.5) {
 			T = high_resolution_clock::now();
-			endPrint(standby); // ±×³É º¯¼ö ÇÏ³ª ´õ ¸¸µé±â ½È¾î¼­ ÀçÈ°¿ë
+			endPrint(standby); // ê·¸ëƒ¥ ë³€ìˆ˜ í•˜ë‚˜ ë” ë§Œë“¤ê¸° ì‹«ì–´ì„œ ì¬í™œìš©
 			if (standby == 0) standby = 1;
 			else standby = 0;
 		}
 
 		if (_kbhit()) break;
-		this_thread::sleep_for(milliseconds(10)); // 0.1ÃÊ ´ë±â
+		this_thread::sleep_for(milliseconds(10)); // 0.1ì´ˆ ëŒ€ê¸°
 	}
 
 }
