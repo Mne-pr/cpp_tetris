@@ -9,6 +9,14 @@
 #define PLANEH 20
 #endif
 
+#ifndef LEFT
+#define LEFT  (int)'a'
+#define RIGHT (int)'d'
+#define DOWN  (int)'s'
+#define ROT   (int)'w'
+#define SPACE 32
+#endif
+
 // 판 클래스
 class planeTable {
 public:
@@ -29,7 +37,7 @@ public:
 
 	void movNote(note*);
 
-	void checkLine();
+	int checkLine();
 
 	int setMovTable(note*);
 

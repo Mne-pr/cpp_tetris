@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Windows.h>
+#include <sstream>
 
 // 랜더링 클래스
 class rendering {

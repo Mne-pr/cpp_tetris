@@ -2,6 +2,19 @@
 
 #include <random>
 
+#ifndef LEFT
+#define LEFT  (int)'a'
+#define RIGHT (int)'d'
+#define DOWN  (int)'s'
+#define ROT   (int)'w'
+#define SPACE 32
+#endif
+
+#ifndef PLANEW
+#define PLANEW 8
+#define PLANEH 20
+#endif
+
 class note {
 public:
 	int ltx, lty;
@@ -48,4 +61,10 @@ public:
 class longNote : public note {
 public:
 	longNote(int);
+};
+
+// §§ ≥Î∆Æ
+class nieunNote : public note {
+public:
+	nieunNote(int);
 };

@@ -1,14 +1,6 @@
 #include "notes.h"
 #include <iostream>
 
-#define LEFT  (int)'a'
-#define RIGHT (int)'d'
-#define DOWN  (int)'s'
-#define ROT   (int)'w'
-
-#define PLANEW 8
-#define PLANEH 20
-
 using namespace std;
 
 // 노트 클래스
@@ -124,4 +116,10 @@ stairNote::stairNote(int mode) : note(3, 2) {
 longNote::longNote(int mode) : note(4, 1) {
 	shape[0][0] = shape[0][1] = shape[0][2] = shape[0][3] = 1;
 	for (int i = 0; i < mode % 2; i++) rotate();
+}
+
+nieunNote::nieunNote(int mode) : note(3, 2) {
+	if (mode % 2 == 0) shape[0][0] = shape[0][1] = shape[0][2] = shape[1][0] = 1;
+	else { shape[0][0] = shape[1][0] = shape[1][1] = shape[1][2] = 1; }
+	for (int i = 0; i < mode % 3; i++) rotate();
 }

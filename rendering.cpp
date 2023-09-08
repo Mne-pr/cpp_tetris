@@ -1,5 +1,4 @@
 #include "rendering.h"
-#include <sstream>
 
 std::ostringstream oss;
 using namespace std;
