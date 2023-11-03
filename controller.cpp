@@ -156,6 +156,7 @@ void controller::RunGame() {
 		}
 
 		if (_kbhit()) break;
+		// 입력값이 r인지 확인 후 해당 값을 메인으로 리턴, 그럼 controller::RunGame()은 int형이라던가
 		this_thread::sleep_for(milliseconds(10)); // 0.1초 대기
 	}
 
