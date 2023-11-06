@@ -108,7 +108,7 @@ void controller::statPrint() {
 	render.screenRender((char*)(sss.str().c_str())); render.screenEndl();
 
 	sss.str(""); sss << "runspeed : " << runSpeed;
-	if (runSpeed != last_runSpeed) { sss << " speed up!"; ast_runSpeed = runSpeed; } sss << endl;
+	if (runSpeed != last_runSpeed) { sss << " speed up!"; last_runSpeed = runSpeed; } sss << endl;
 	render.screenRender((char*)(sss.str().c_str()));
 }
 
