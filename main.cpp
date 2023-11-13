@@ -4,8 +4,15 @@
 #include "planeTable.h"
 
 int main() {
-	controller con;
-	con.RunGame();
+	int rerun = 1;
+	controller* con;
+
+	while (rerun) {
+		con = new controller();
+		rerun = con->RunGame();
+		delete(con);
+	}
+
 	return 0;
 }
 

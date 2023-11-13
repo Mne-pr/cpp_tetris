@@ -28,6 +28,7 @@ public:
 
 	planeTable();
 	planeTable(rendering*);
+	~planeTable();
 
 	void init();
 

@@ -11,6 +11,10 @@ planeTable::planeTable() {
 
 planeTable::planeTable(rendering* r) { render = r; init(); }
 
+planeTable::~planeTable() {
+}
+
+
 void planeTable::init() {
 	for (int i = 0; i < PLANEH; i++) {
 		for (int j = 0; j < PLANEW; j++) {

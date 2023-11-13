@@ -13,6 +13,13 @@ note::note(int w, int h) : sW(w), sH(h) {
 	ltx = lty = command = 0;
 }
 
+note::~note() {
+	for (int i = 0; i < sH; i++) {
+		delete(shape[i]);
+	}
+}
+
+
 void note::setShapeWH(int w, int h) { note(sH, sW); }
 
 void note::setLocation(int x, int y) { ltx = x; lty = y; }

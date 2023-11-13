@@ -23,6 +23,7 @@ public:
 	int command;
 
 	note(int, int);
+	~note();
 
 	void setShapeWH(int, int);
 

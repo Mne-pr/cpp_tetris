@@ -13,6 +13,7 @@ public:
 
 	// 积己磊
 	rendering();
+	~rendering();
 
 	// 滚欺 积己
 	void screenInit();

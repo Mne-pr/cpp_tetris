@@ -8,10 +8,15 @@ using namespace std;
 rendering::rendering() {
 	// 콘솔창 설정
 	backScreen = curx = cury = 0;
-	oss << "mode con: cols=100 lines=40";
+	oss << "mode con: cols=100 lines=40" << endl;
 	system(oss.str().c_str());
 	system("title TETRIS");
 	screenInit();
+}
+
+rendering::~rendering() {
+	CloseHandle(screen[0]);
+	CloseHandle(screen[1]);
 }
 
 void rendering::screenInit() {

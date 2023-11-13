@@ -14,6 +14,10 @@ controller::controller() : gen(random_device()()) {
 	clearCount = 0;
 }
 
+controller::~controller() {
+	delete(next_n);
+}
+
 void controller::makeNote() {
 	// 랜덤 값, 모드 생성
 	uniform_int_distribution<int> distribution(1, 100);
@@ -118,15 +122,19 @@ void controller::endPrint(int m) {
 	render.screenRender(0, (PLANEH - 4) / 2 + 1, (char*)"game over!");
 	sss.str(""); sss << "score : " << table.score << endl;
 	render.screenRender(0, (PLANEH - 4) / 2 + 2,(char*)(sss.str().c_str()));
-	if (m == 0) render.screenRender(0, (PLANEH - 4) / 2 + 3, (char*)"press any key to exit");
+	if (m == 0) {
+		render.screenRender(0, (PLANEH - 4) / 2 + 3, (char*)"press any key to exit");
+		render.screenRender(0, (PLANEH - 4) / 2 + 4, (char*)"press r(R) key to restart");
+	}
 
 	render.screenswitch();
 }
 
-void controller::RunGame() {
+int controller::RunGame() {
 	// 현재 시간 측정
 	auto T = high_resolution_clock::now();
 
+	// 게임 시작
 	while (true) {
 		auto cT = high_resolution_clock::now();
 		// 1초마다
@@ -146,6 +154,7 @@ void controller::RunGame() {
 		this_thread::sleep_for(milliseconds(10)); // 0.1초 대기
 	}
 
+	// 게임 종료
 	while (true) {
 		auto cT = high_resolution_clock::now();
 		if (duration_cast<duration<double>>(cT - T).count() >= 0.5) {
@@ -155,7 +164,11 @@ void controller::RunGame() {
 			else standby = 0;
 		}
 
-		if (_kbhit()) break;
+		if (_kbhit()) {
+			char userInput = _getch();
+			if (userInput == 'r' || userInput == 'R') return 1;
+			else return 0;
+		}
 		// 입력값이 r인지 확인 후 해당 값을 메인으로 리턴, 그럼 controller::RunGame()은 int형이라던가
 		this_thread::sleep_for(milliseconds(10)); // 0.1초 대기
 	}

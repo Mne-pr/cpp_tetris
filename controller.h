@@ -15,6 +15,7 @@
 #endif
 
 // 컨트롤러 클래스
+
 class controller {
 public:
 	int standby;
@@ -30,6 +31,8 @@ public:
 public:
 	controller();
 
+	~controller();
+
 	void makeNote();
 
 	void makeNoteN();
@@ -40,6 +43,6 @@ public:
 
 	void endPrint(int);
 
-	void RunGame();
+	int RunGame();
 
 };
